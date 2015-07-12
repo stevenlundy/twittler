@@ -1,3 +1,8 @@
+var filter = {
+  type: undefined,
+  value: undefined
+};
+
 // User Constructor
 var User = function(fullname, username, picture){
   this.fullname = fullname;
@@ -24,6 +29,11 @@ var formatTweet = function(tweet){
       $profileLink.append($profilePic);
       $profileLink.append($fullname);
       $profileLink.append($username);
+      $profileLink.click(function(){
+        filter.type = 'user';
+        filter.value = user.username;
+        populateStream(streams.users[filter.value]);
+      })
       var $time = $('<time>', {class: 'time', datetime: tweet.created_at}).text(moment(tweet.created_at).fromNow());
     $tweetHeader.append($profileLink);
     $tweetHeader.append($time);
@@ -55,7 +65,13 @@ var populateStream = function (tweets, maxTweets){
 };
 
 setInterval(function(){
-  populateStream(streams.home);
+  if(filter.type === 'user'){
+    populateStream(streams.users[filter.value]);
+  } else if (filter.type === 'tag'){
+
+  } else {
+    populateStream(streams.home);
+  }
 }, 1000);
 
 $(document).ready(function(){
