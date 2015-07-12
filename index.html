@@ -3,10 +3,27 @@
   <head>
     <title>Twittler</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
   </head>
   <body>
-
-
+    <header>
+      <h1 class="title">Twittler</h1>
+      <nav>
+        <ul>
+          <li><i class="fa fa-home"></i>My Feed</li>
+          <li><i class="fa fa-user"></i>My Tweets</li>
+          <li><i class="fa fa-pencil"></i>Tweet</li>
+        </ul>
+      </nav>
+      <div class="search">
+        <input type="text" placeholder="Search Twittler">
+        <button><i class="fa fa-search"></i></button>
+      </div>
+    </header>
+    <section>
+      <ul class="tweet-stream"></ul>
+    </section>
+    
     <script src="jquery.js"></script>
     <script src="moment.js"></script>
     <script src="underscore.js"></script>
