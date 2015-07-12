@@ -43,15 +43,21 @@ var updateStreamTime = function(){
 // Update timestamps every minute
 setInterval(updateStreamTime, 60000);
 
+// Function to populate the stream with an array of tweets
+var populateStream = function (tweets, maxTweets){
+  maxTweets = maxTweets || tweets.length;
+  maxTweets = maxTweets < tweets.length ? maxTweets : tweets.length;
+  var $stream = $('.tweet-stream');
+  $stream.text('');
+  _.chain(tweets).last(maxTweets).reverse().each(function(tweet){
+    $stream.append(formatTweet(tweet));
+  })
+};
+
+setInterval(function(){
+  populateStream(streams.home);
+}, 1000);
 
 $(document).ready(function(){
-  var $stream = $('.tweet-stream');
-
-  var index = streams.home.length - 1;
-  while(index >= 0){
-    var tweet = streams.home[index];
-    $stream.append(formatTweet(tweet));
-    index -= 1;
-  }
-
+  populateStream(streams.home);
 });
