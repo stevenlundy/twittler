@@ -1,6 +1,6 @@
-var User = function(name, handle, picture){
-  this.name = name;
-  this.handle = handle;
+var User = function(fullname, username, picture){
+  this.fullname = fullname;
+  this.username = username;
   this.picture = picture;
 };
 
@@ -10,6 +10,29 @@ userInfo.sharksforcheap = new User('Anthony Phillips', 'sharksforcheap', 'https:
 userInfo.mracus = new User('Marcus Phillips', 'mracus', 'https://pbs.twimg.com/profile_images/460312331923107840/m1Fip-Vt_400x400.jpeg');
 userInfo.douglascalhoun = new User('Douglas Calhoun', 'douglascalhoun', 'https://pbs.twimg.com/profile_images/1831644430/DSC02750_400x400.JPG');
 
+//Utility Function for formatting tweets into html
+var formatTweet = function(tweet){
+  var user = userInfo[tweet.user];
+
+  var $tweet = $('<div>', {class: 'tweet'});
+    var $tweetHeader = $('<div>', {class: 'tweet-header'});
+      var $profileLink = $('<a>', {class: 'profile-link', href: '#'});
+        var $profilePic = $('<img>', {class: 'profile-pic', src: user.picture, alt: user.fullname});
+        var $fullname = $('<span>', {class: 'fullname'}).text(user.fullname);
+        var $username = $('<span>', {class: 'username'}).text('@'+user.username);
+      $profileLink.append($profilePic);
+      $profileLink.append($fullname);
+      $profileLink.append($username);
+      var $time = $('<time>', {class: 'time', datetime: tweet.created_at}).text(moment(tweet.created_at).fromNow());
+    $tweetHeader.append($profileLink);
+    $tweetHeader.append($time);
+    var $tweetText = $('<div>', {class: 'tweet-text'}).text(tweet.message);
+  $tweet.append($tweetHeader);
+  $tweet.append($tweetText);
+
+  return $tweet;
+}
+
 $(document).ready(function(){
   var $body = $('body');
   $body.html('');
@@ -17,9 +40,7 @@ $(document).ready(function(){
   var index = streams.home.length - 1;
   while(index >= 0){
     var tweet = streams.home[index];
-    var $tweet = $('<div></div>');
-    $tweet.text('@' + tweet.user + ': ' + tweet.message);
-    $tweet.appendTo($body);
+    $body.append(formatTweet(tweet));
     index -= 1;
   }
 
