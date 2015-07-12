@@ -32,19 +32,49 @@ var formatTweet = function(tweet){
       var $time = $('<time>', {class: 'time', datetime: tweet.created_at}).text(moment(tweet.created_at).fromNow());
     $tweetHeader.append($profileLink);
     $tweetHeader.append($time);
-    var $tweetText = $('<div>', {class: 'tweet-text'}).text(tweet.message);
+    var $tweetText = formatMessage(tweet.message);
   $tweet.append($tweetHeader);
   $tweet.append($tweetText);
 
   return $tweet;
-}
+};
+
+// Format tweet messages to include links to tags and users
+var formatMessage = function(message){
+  var isHashTag = function(word){
+    return /^#\w+$/.test(word);
+  }
+  var isUsername = function(word){
+    return /^@\w+$/.test(word);
+  }
+  $tweet = $('<div>', {class: 'tweet-text'});
+  _.each(message.split(' '), function(word, index){
+    if(index){
+      $tweet.append(' ');
+    }
+    if(isHashTag(word)){
+      var $hashLink = $('<a>', {class: 'hashtag', href: '#'}).text(word);
+      $hashLink.click(function(){
+        filter.type = 'tag';
+        filter.value = word;
+        populateStream(_.filter(streams.home,function(tweet){
+          return tweet.message.indexOf(filter.value) >= 0;
+        }));
+      });
+      $tweet.append($hashLink);
+    } else {
+      $tweet.append(word);
+    }
+  });
+  return $tweet;
+};
 
 // function to update timestamps on tweets in stream
 var updateStreamTime = function(){
   $('.tweet-stream .time').each(function(){
     $(this).text(moment($(this).attr('datetime')).fromNow());
-  })
-}
+  });
+};
 // Update timestamps every minute
 setInterval(updateStreamTime, 60000);
 
@@ -56,7 +86,7 @@ var populateStream = function (tweets, maxTweets){
   $stream.text('');
   _.chain(tweets).last(maxTweets).reverse().each(function(tweet){
     $stream.append(formatTweet(tweet));
-  })
+  });
 };
 
 // Filter stream based on username or hashtag
@@ -70,7 +100,7 @@ setInterval(function(){
   } else if (filter.type === 'tag'){
     populateStream(_.filter(streams.home,function(tweet){
       return tweet.message.indexOf(filter.value) >= 0;
-    }))
+    }));
   } else {
     populateStream(streams.home);
   }
