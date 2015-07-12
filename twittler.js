@@ -1,8 +1,3 @@
-var filter = {
-  type: undefined,
-  value: undefined
-};
-
 // User Constructor
 var User = function(fullname, username, picture){
   this.fullname = fullname;
@@ -64,11 +59,18 @@ var populateStream = function (tweets, maxTweets){
   })
 };
 
+// Filter stream based on username or hashtag
+var filter = {
+  type: undefined,
+  value: undefined
+};
 setInterval(function(){
   if(filter.type === 'user'){
     populateStream(streams.users[filter.value]);
   } else if (filter.type === 'tag'){
-
+    populateStream(_.filter(streams.home,function(tweet){
+      return tweet.message.indexOf(filter.value) >= 0;
+    }))
   } else {
     populateStream(streams.home);
   }
