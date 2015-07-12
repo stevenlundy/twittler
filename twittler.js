@@ -1,3 +1,4 @@
+// User Constructor
 var User = function(fullname, username, picture){
   this.fullname = fullname;
   this.username = username;
@@ -10,11 +11,11 @@ userInfo.sharksforcheap = new User('Anthony Phillips', 'sharksforcheap', 'https:
 userInfo.mracus = new User('Marcus Phillips', 'mracus', 'https://pbs.twimg.com/profile_images/460312331923107840/m1Fip-Vt_400x400.jpeg');
 userInfo.douglascalhoun = new User('Douglas Calhoun', 'douglascalhoun', 'https://pbs.twimg.com/profile_images/1831644430/DSC02750_400x400.JPG');
 
-//Utility Function for formatting tweets into html
+// Utility Function for formatting tweets into html
 var formatTweet = function(tweet){
   var user = userInfo[tweet.user];
 
-  var $tweet = $('<div>', {class: 'tweet'});
+  var $tweet = $('<li>', {class: 'tweet'});
     var $tweetHeader = $('<div>', {class: 'tweet-header'});
       var $profileLink = $('<a>', {class: 'profile-link', href: '#'});
         var $profilePic = $('<img>', {class: 'profile-pic', src: user.picture, alt: user.fullname});
@@ -33,14 +34,23 @@ var formatTweet = function(tweet){
   return $tweet;
 }
 
+// function to update timestamps on tweets in stream
+var updateStreamTime = function(){
+  $('.tweet-stream .time').each(function(){
+    $(this).text(moment($(this).attr('datetime')).fromNow());
+  })
+}
+// Update timestamps every minute
+setInterval(updateStreamTime, 60000);
+
+
 $(document).ready(function(){
-  var $body = $('body');
-  $body.html('');
+  var $stream = $('.tweet-stream');
 
   var index = streams.home.length - 1;
   while(index >= 0){
     var tweet = streams.home[index];
-    $body.append(formatTweet(tweet));
+    $stream.append(formatTweet(tweet));
     index -= 1;
   }
 
