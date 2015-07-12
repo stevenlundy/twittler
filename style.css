@@ -1,3 +1,5 @@
+@import url(http://fonts.googleapis.com/css?family=Lato:300,400,700|Lobster);
+
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
    License: none (public domain)
@@ -45,4 +47,142 @@ q:before, q:after {
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
+}
+
+
+/*
+  ========================================
+  Custom styles
+  ========================================
+*/
+
+body {
+  background: #F5F8FA;
+  color: #292F33;
+  font: 16px/22px "Lato", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+/*
+  ========================================
+  Grid
+  ========================================
+*/
+
+*,
+*:before,
+*:after {
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+.container{
+  margin: 0 auto;
+  max-width: 720px;
+}
+.container {
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+/*
+  ========================================
+  Clearfix
+  ========================================
+*/
+
+.group:before,
+.group:after {
+  content: "";
+  display: table;
+}
+.group:after {
+  clear: both;
+}
+.group {
+  clear: both;
+  *zoom: 1;
+}
+
+/*
+  ========================================
+  Typography
+  ========================================
+*/
+
+h1, h2, h3, h4 {
+  color: #55ACEE;
+}
+h1, h3, h4, h5, p {
+  margin-bottom: 22px;
+}
+h1 {
+  font-size: 36px;
+  line-height: 44px;
+}
+h2 {
+  font-size: 24px;
+  line-height: 44px;
+}
+h3 {
+  font-size: 21px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  color: #a9b2b9;
+  font-size: 14px;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+strong {
+  font-weight: 400;
+}
+cite,
+em {
+  font-style: italic;
+}
+
+/*
+  ========================================
+  Primary header
+  ========================================
+*/
+
+.logo {
+  font-family: 'Lobster', 'Brush Script MT', 'Georgia', cursive;
+  font-size: 48px;
+  letter-spacing: .5px;
+  line-height: 44px;
+  padding: 40px 0 22px 0;
+}
+.primary-nav {
+  font-size: 14px;
+  letter-spacing: .5px;
+  text-transform: uppercase;
+}
+
+/*
+  ========================================
+  Navigation
+  ========================================
+*/
+
+.nav {
+
+}
+.nav li {
+  display: inline-block;
+  margin: 0 10px;
+  vertical-align: top;
+}
+.nav li:last-child {
+  margin-right: 0;
+}
+
+
+
+.profile-pic {
+	width: 48px;
+	border-radius: 4px;
 }
