@@ -15,7 +15,7 @@ userInfo.douglascalhoun = new User('Douglas Calhoun', 'douglascalhoun', 'https:/
 var formatTweet = function(tweet){
   var user = userInfo[tweet.user];
 
-  var $tweet = $('<li>', {class: 'tweet'});
+  var $tweet = $('<li>', {class: 'tweet group'});
     var $tweetHeader = $('<div>', {class: 'tweet-header'});
       var $profileLink = $('<a>', {class: 'profile-link', href: '#'});
         var $profilePic = $('<img>', {class: 'profile-pic', src: user.picture, alt: user.fullname});
@@ -61,9 +61,17 @@ var formatMessage = function(message){
           return tweet.message.indexOf(filter.value) >= 0;
         }));
       });
-      $tweet.append($hashLink);
+      if(word === filter.value){
+        $tweet.append($('<strong>').append($hashLink));
+      } else {
+        $tweet.append($hashLink);
+      }
     } else {
-      $tweet.append(word);
+      if(word === filter.value){
+        $tweet.append($('<strong>').append(word));
+      } else {
+        $tweet.append(word);
+      }
     }
   });
   return $tweet;
