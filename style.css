@@ -18,35 +18,35 @@ article, aside, canvas, details, embed,
 figure, figcaption, footer, header, hgroup, 
 menu, nav, output, ruby, section, summary,
 time, mark, audio, video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	font: inherit;
-	vertical-align: baseline;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
 }
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure, 
 footer, header, hgroup, menu, nav, section {
-	display: block;
+  display: block; 
 }
 body {
-	line-height: 1;
+  line-height: 1;
 }
 ol, ul {
-	list-style: none;
+  list-style: none;
 }
 blockquote, q {
-	quotes: none;
+  quotes: none;
 }
 blockquote:before, blockquote:after,
 q:before, q:after {
-	content: '';
-	content: none;
+  content: '';
+  content: none;
 }
 table {
-	border-collapse: collapse;
-	border-spacing: 0;
+  border-collapse: collapse;
+  border-spacing: 0;
 }
 
 
@@ -180,9 +180,68 @@ em {
   margin-right: 0;
 }
 
-
-
+/*
+  ========================================
+  Tweets
+  ========================================
+*/
+.tweet {
+  background: #fff;
+  border: solid #E1E8ED 1px;
+  border-bottom: 0;
+  padding: 12px;
+  height: 72px;
+}
+.tweet:hover {
+  background: #f5f8fa;
+}
+.tweet:first-child {
+  border-radius: 6px 6px 0 0;
+}
+.tweet:last-child {
+  border-radius: 0 0 6px 6px;
+  border-bottom: solid #E1E8ED 1px;
+}
 .profile-pic {
-	width: 48px;
-	border-radius: 4px;
+  height: 48px;
+  margin-right: 12px;
+  border-radius: 6px;
+  float: left;
+}
+/*
+  ========================================
+  Links
+  ========================================
+*/
+.hashtag,
+.hashtag:visited,
+.hashtag:focus {
+  color: #0084B4;
+  text-decoration: none;
+}
+.hashtag:hover {
+  text-decoration: underline;
+}
+
+.profile-link,
+.profile-link:visited,
+.profile-link:focus {
+  text-decoration: none;
+  color: inherit;
+}
+.fullname {
+  font-weight: 700;
+}
+.profile-link:hover .fullname {
+  text-decoration: underline;
+  color: #0084B4;
+}
+.username,
+.time {
+  font-size: 0.8em;
+  color: #8899a6;
+  padding: 0.2em;
+}
+.time:before {
+  content: "\00b7  ";
 }
