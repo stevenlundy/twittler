@@ -133,9 +133,10 @@ $(document).ready(function(){
 
   // Show more tweets if user scrolls to the bottom of the page
   $(window).scroll(function() {
-   if($(window).scrollTop() + $(window).height() == $(document).height() - 100) {
+   if($(window).scrollTop() + $(window).height() == $(document).height()) {
+      console.log(getCurrentStream().length);
       if(getCurrentStream().length < tweetNum){
-        tweetNum += 5;
+        tweetNum += 2;
       }
    }
   });
