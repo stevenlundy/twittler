@@ -152,7 +152,7 @@ $(document).ready(function() {
   });
 
   $('.login form').submit(function(){
-    visitor = $('#username').val();
+    visitor = $('#username').val().toLowerCase();
     var fullname = $('#fullname').val();
     var picture = 'https://si0.twimg.com/sticky/default_profile_images/default_profile_4_reasonably_small.png';
     streams.users[visitor]= [];
