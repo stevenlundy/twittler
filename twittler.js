@@ -162,6 +162,7 @@ $(document).ready(function() {
     if(searchTerm.trim() !== ''){
       setFilter(searchTerm);
       $('.search input').val('');
+      window.scrollTo(0,0);
     }
   });
 });
