@@ -25,10 +25,7 @@ var formatTweet = function(tweet){
       $profileLink.append($fullname);
       $profileLink.append($username);
       $profileLink.click(function(){
-        filter.type = 'user';
-        filter.value = user.username;
-        tweetNum = defaultTweetNum;
-        populateStream(streams.users[filter.value], tweetNum);
+        setFilter('@'+user.username);
       })
       var $time = $('<time>', {class: 'time', datetime: tweet.created_at}).text(moment(tweet.created_at).fromNow());
     $tweetHeader.append($profileLink);
@@ -40,14 +37,16 @@ var formatTweet = function(tweet){
   return $tweet;
 };
 
+// Utility functions to check if a string is a hashtag or username
+var isHashTag = function(word){
+  return /^#\w+$/.test(word);
+}
+var isUsername = function(word){
+  return /^@\w+$/.test(word);
+}
+
 // Format tweet messages to include links to tags and users
 var formatMessage = function(message){
-  var isHashTag = function(word){
-    return /^#\w+$/.test(word);
-  }
-  var isUsername = function(word){
-    return /^@\w+$/.test(word);
-  }
   $tweet = $('<div>', {class: 'tweet-text'});
   _.each(message.split(' '), function(word, index){
     if(index){
@@ -56,12 +55,7 @@ var formatMessage = function(message){
     if(isHashTag(word)){
       var $hashLink = $('<a>', {class: 'hashtag', href: '#'}).text(word);
       $hashLink.click(function(){
-        filter.type = 'tag';
-        filter.value = word;        
-        tweetNum = defaultTweetNum;
-        populateStream(_.filter(streams.home,function(tweet){
-          return tweet.message.indexOf(filter.value) >= 0;
-        }), tweetNum);
+        setFilter(word);
       });
       if(word === filter.value){
         $tweet.append($('<strong>').append($hashLink));
@@ -110,8 +104,7 @@ var setFilter = function(value){
   if(typeof value === 'undefined'){
     filter.type = undefined;
     filter.value = undefined;
-  }
-  if(isUsername(value)){
+  }else if(isUsername(value)){
     filter.type = 'user';
     filter.value = value.slice(1);
   } else {
@@ -140,10 +133,7 @@ setInterval(function() {
 $(document).ready(function() {
   populateStream(streams.home);
   $('#my-feed').click(function(){
-    filter.type = undefined;
-    filter.value = undefined;
-    tweetNum = defaultTweetNum;
-    populateStream(streams.home, tweetNum);
+    setFilter();
   });
 
   // Show more tweets if user scrolls to the bottom of the page
@@ -156,7 +146,7 @@ $(document).ready(function() {
    }
   });
 
-
+  // Allow searching for users or words from search bar
   $('.search input').keypress(function (e) {
     if (e.which == 13) {
       $('.search button').click();
