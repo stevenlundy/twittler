@@ -130,9 +130,13 @@ $(document).ready(function(){
     tweetNum = defaultTweetNum;
     populateStream(streams.home, tweetNum);
   });
+
+  // Show more tweets if user scrolls to the bottom of the page
   $(window).scroll(function() {
    if($(window).scrollTop() + $(window).height() == $(document).height() - 100) {
-       tweetNum += 5;
+      if(getCurrentStream().length < tweetNum){
+        tweetNum += 5;
+      }
    }
   });
 });
