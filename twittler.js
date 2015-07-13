@@ -153,6 +153,7 @@ $(document).ready(function() {
     var tweetText = $('.tweet-composer textarea').val();
     if(e.which == 13) {
       e.preventDefault();
+      $('.tweet-composer textarea').val(tweetText.slice(0, -1)); // Remove trailing carriage return
       $('.tweet-composer button').click();
     } else {
       if(tweetText.length >= 140){
