@@ -106,6 +106,21 @@ var filter = {
   type: undefined,
   value: undefined
 };
+var setFilter = function(value){
+  if(typeof value === 'undefined'){
+    filter.type = undefined;
+    filter.value = undefined;
+  }
+  if(isUsername(value)){
+    filter.type = 'user';
+    filter.value = value.slice(1);
+  } else {
+    filter.type = 'tag';
+    filter.value = value;
+  }
+  tweetNum = defaultTweetNum;
+  populateStream(getCurrentStream(), tweetNum);
+}
 // Function to get current stream based on filter
 var getCurrentStream = function(){
   if(filter.type === 'user'){
@@ -118,11 +133,11 @@ var getCurrentStream = function(){
     return streams.home;
   }
 }
-setInterval(function(){
+setInterval(function() {
   populateStream(getCurrentStream(), tweetNum);
 }, 1000);
 
-$(document).ready(function(){
+$(document).ready(function() {
   populateStream(streams.home);
   $('#my-feed').click(function(){
     filter.type = undefined;
@@ -140,4 +155,18 @@ $(document).ready(function(){
       }
    }
   });
+
+
+  $('.search input').keypress(function (e) {
+    if (e.which == 13) {
+      $('.search button').click();
+    }
+  });
+  $('.search button').click(function() {
+    var searchTerm = $('.search input').val();
+    if(searchTerm.trim() !== ''){
+      setFilter(searchTerm);
+      $('.search input').val('');
+    }
+  })
 });
