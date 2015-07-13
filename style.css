@@ -79,11 +79,12 @@ body {
   margin: 0 auto;
   max-width: 720px;
 }
-.container {
-  padding-left: 30px;
-  padding-right: 30px;
+@media all and (min-width: 720px) {
+  .container {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
 }
-
 /*
   ========================================
   Clearfix
@@ -190,7 +191,7 @@ em {
   border: solid #E1E8ED 1px;
   border-bottom: 0;
   padding: 12px;
-  height: 72px;
+  min-height: 72px;
 }
 .tweet:hover {
   background: #f5f8fa;
@@ -201,6 +202,9 @@ em {
 .tweet:last-child {
   border-radius: 0 0 6px 6px;
   border-bottom: solid #E1E8ED 1px;
+}
+.tweet-text {
+  margin-left: 60px;
 }
 .profile-pic {
   height: 48px;
@@ -243,5 +247,18 @@ em {
   padding: 0.2em;
 }
 .time:before {
-  content: "\00b7  ";
+  content: "\A";
+  white-space: pre;
+}
+.tweet-header {
+  line-height: 1em;
+}
+@media all and (min-width: 480px) {
+  .time:before {
+    content: "\00b7  ";
+    white-space: pre;
+  } 
+  .tweet-header {
+    line-height: 1.4em;
+  }
 }
