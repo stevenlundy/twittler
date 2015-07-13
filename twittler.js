@@ -126,4 +126,9 @@ $(document).ready(function(){
     tweetNum = defaultTweetNum;
     populateStream(streams.home, tweetNum);
   });
+  $(window).scroll(function() {
+   if($(window).scrollTop() + $(window).height() == $(document).height() - 100) {
+       tweetNum += 5;
+   }
+  });
 });
