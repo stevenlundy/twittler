@@ -135,6 +135,11 @@ $(document).ready(function() {
   $('#my-feed').click(function(){
     setFilter();
   });
+  $('#my-tweets').click(function(){
+    if(visitor){
+      setFilter('@'+visitor);
+    }
+  })
 
   // Show more tweets if user scrolls to the bottom of the page
   $(window).scroll(function() {
@@ -158,5 +163,5 @@ $(document).ready(function() {
       setFilter(searchTerm);
       $('.search input').val('');
     }
-  })
+  });
 });
