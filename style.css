@@ -171,7 +171,8 @@ em {
 */
 
 .nav {
-
+  float: left;
+  padding: 4px 0;
 }
 .nav li {
   display: inline-block;
@@ -180,6 +181,39 @@ em {
 }
 .nav li:last-child {
   margin-right: 0;
+}
+.nav a {
+  color: #fff;
+  text-decoration: none;
+}
+
+/*
+  ========================================
+  Search box
+  ========================================
+*/
+.search {
+  float: right;
+  margin-right: 10px;
+  color: #292f33;
+}
+.search input {
+  background-color: #f5f8fa;
+  border: 1px solid #e1e8ed;
+  border-radius: 15px;
+  padding: 5px 40px 5px 5px;
+  margin-right: -40px;
+}
+.search input:focus {
+  outline: none;
+  background-color: #fff;
+}
+.search button {
+  background-color: inherit;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  color: #66757f;
 }
 
 /*
