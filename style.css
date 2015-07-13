@@ -120,8 +120,8 @@ h1 {
   line-height: 44px;
 }
 h2 {
-  font-size: 24px;
-  line-height: 44px;
+  font-size: 20px;
+  line-height: 30px;
 }
 h3 {
   font-size: 21px;
@@ -215,7 +215,51 @@ em {
   outline: none;
   color: #66757f;
 }
-
+/*
+  ========================================
+  Tweet Composer
+  ========================================
+*/
+.tweet-composer {
+  background: #fff;
+  border: solid #E1E8ED 1px;
+  border-radius: 6px;
+  padding: 6px 12px;
+  margin-bottom: 12px;
+}
+.tweet-composer textarea {
+  width: 100%;
+  height: 4em;
+  resize: none;
+  border: solid #E1E8ED 1px;
+  border-radius: 6px;
+  outline: none;
+  font: 16px/22px "Lato", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.tweet-composer textarea:focus {
+  border: solid #55ACEE 1px;
+}
+.tweet-composer button {
+  padding: 10px 20px;
+  float: right;
+  color: #8899a6;
+  border: solid #E1E8ED 1px;
+  outline: none;
+  background: #f5f8fa;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1.2em;
+}
+.tweet-composer button:hover {
+  border: solid #55ACEE 1px;
+  color: #55ACEE;
+}
+#char-count {
+  padding: 10px;
+  float: right;
+  color: #8899a6;
+  font-size: 1.2em;
+}
 /*
   ========================================
   Tweets
