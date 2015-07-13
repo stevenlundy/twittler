@@ -145,7 +145,8 @@ $(document).ready(function() {
     }
   })
   $('#tweet').click(function(){
-    $('.tweet-composer textarea').focus()
+    $('.tweet-composer').slideDown();
+    $('.tweet-composer textarea').focus();
   })
 
   //Let users write and submit tweets

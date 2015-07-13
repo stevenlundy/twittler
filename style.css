@@ -221,6 +221,7 @@ em {
   ========================================
 */
 .tweet-composer {
+  display: none;
   background: #fff;
   border: solid #E1E8ED 1px;
   border-radius: 6px;
