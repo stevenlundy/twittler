@@ -135,8 +135,8 @@ $(document).ready(function(){
   $(window).scroll(function() {
    if($(window).scrollTop() + $(window).height() == $(document).height()) {
       console.log(getCurrentStream().length);
-      if(getCurrentStream().length < tweetNum){
-        tweetNum += 2;
+      if(getCurrentStream().length > tweetNum){
+        tweetNum += 5;
       }
    }
   });
