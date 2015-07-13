@@ -106,16 +106,20 @@ var filter = {
   type: undefined,
   value: undefined
 };
-setInterval(function(){
+// Function to get current stream based on filter
+var getCurrentStream = function(){
   if(filter.type === 'user'){
-    populateStream(streams.users[filter.value], tweetNum);
+    return streams.users[filter.value];
   } else if (filter.type === 'tag'){
-    populateStream(_.filter(streams.home,function(tweet){
+    return _.filter(streams.home,function(tweet){
       return tweet.message.indexOf(filter.value) >= 0;
-    }), tweetNum);
+    });
   } else {
-    populateStream(streams.home, tweetNum);
+    return streams.home;
   }
+}
+setInterval(function(){
+  populateStream(getCurrentStream(), tweetNum);
 }, 1000);
 
 $(document).ready(function(){
