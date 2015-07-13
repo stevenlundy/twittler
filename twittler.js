@@ -11,6 +11,10 @@ userInfo.sharksforcheap = new User('Anthony Phillips', 'sharksforcheap', 'https:
 userInfo.mracus = new User('Marcus Phillips', 'mracus', 'https://pbs.twimg.com/profile_images/460312331923107840/m1Fip-Vt_400x400.jpeg');
 userInfo.douglascalhoun = new User('Douglas Calhoun', 'douglascalhoun', 'https://pbs.twimg.com/profile_images/1831644430/DSC02750_400x400.JPG');
 
+var visitor = 'test';
+streams.users[visitor]= [];
+userInfo[visitor] = new User('John Doe', visitor, 'https://si0.twimg.com/sticky/default_profile_images/default_profile_4_reasonably_small.png');
+
 // Utility Function for formatting tweets into html
 var formatTweet = function(tweet){
   var user = userInfo[tweet.user];
@@ -140,6 +144,31 @@ $(document).ready(function() {
       setFilter('@'+visitor);
     }
   })
+  $('#tweet').click(function(){
+    $('.tweet-composer textarea').focus()
+  })
+
+  //Let users write and submit tweets
+  $('.tweet-composer textarea').on('keyup', function(e){
+    var tweetText = $('.tweet-composer textarea').val();
+    if(e.which == 13) {
+      e.preventDefault();
+      $('.tweet-composer button').click();
+    } else {
+      if(tweetText.length >= 140){
+        e.preventDefault();
+        $('.tweet-composer textarea').val(tweetText.substr(0,140));
+        $('#char-count').text(0);
+      } else {
+        $('#char-count').text(140 - tweetText.length);
+      }
+    }
+  })
+  $('.tweet-composer button').click(function(){
+    writeTweet(tweetText = $('.tweet-composer textarea').val());
+    $('.tweet-composer textarea').val('');
+    $('#char-count').text(140);
+  });
 
   // Show more tweets if user scrolls to the bottom of the page
   $(window).scroll(function() {
@@ -152,8 +181,8 @@ $(document).ready(function() {
   });
 
   // Allow searching for users or words from search bar
-  $('.search input').keypress(function (e) {
-    if (e.which == 13) {
+  $('.search input').keypress(function(e) {
+    if(e.which == 13) {
       $('.search button').click();
     }
   });
