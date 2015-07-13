@@ -27,7 +27,8 @@ var formatTweet = function(tweet){
       $profileLink.click(function(){
         filter.type = 'user';
         filter.value = user.username;
-        populateStream(streams.users[filter.value]);
+        tweetNum = defaultTweetNum;
+        populateStream(streams.users[filter.value], tweetNum);
       })
       var $time = $('<time>', {class: 'time', datetime: tweet.created_at}).text(moment(tweet.created_at).fromNow());
     $tweetHeader.append($profileLink);
@@ -56,10 +57,11 @@ var formatMessage = function(message){
       var $hashLink = $('<a>', {class: 'hashtag', href: '#'}).text(word);
       $hashLink.click(function(){
         filter.type = 'tag';
-        filter.value = word;
+        filter.value = word;        
+        tweetNum = defaultTweetNum;
         populateStream(_.filter(streams.home,function(tweet){
           return tweet.message.indexOf(filter.value) >= 0;
-        }));
+        }), tweetNum);
       });
       if(word === filter.value){
         $tweet.append($('<strong>').append($hashLink));
@@ -87,6 +89,8 @@ var updateStreamTime = function(){
 setInterval(updateStreamTime, 60000);
 
 // Function to populate the stream with an array of tweets
+var defaultTweetNum = 20;
+var tweetNum = defaultTweetNum;
 var populateStream = function (tweets, maxTweets){
   maxTweets = maxTweets || tweets.length;
   maxTweets = maxTweets < tweets.length ? maxTweets : tweets.length;
@@ -104,16 +108,22 @@ var filter = {
 };
 setInterval(function(){
   if(filter.type === 'user'){
-    populateStream(streams.users[filter.value]);
+    populateStream(streams.users[filter.value], tweetNum);
   } else if (filter.type === 'tag'){
     populateStream(_.filter(streams.home,function(tweet){
       return tweet.message.indexOf(filter.value) >= 0;
-    }));
+    }), tweetNum);
   } else {
-    populateStream(streams.home);
+    populateStream(streams.home, tweetNum);
   }
 }, 1000);
 
 $(document).ready(function(){
   populateStream(streams.home);
+  $('#my-feed').click(function(){
+    filter.type = undefined;
+    filter.value = undefined;
+    tweetNum = defaultTweetNum;
+    populateStream(streams.home, tweetNum);
+  });
 });
