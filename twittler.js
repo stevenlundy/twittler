@@ -11,9 +11,7 @@ userInfo.sharksforcheap = new User('Anthony Phillips', 'sharksforcheap', 'https:
 userInfo.mracus = new User('Marcus Phillips', 'mracus', 'https://pbs.twimg.com/profile_images/460312331923107840/m1Fip-Vt_400x400.jpeg');
 userInfo.douglascalhoun = new User('Douglas Calhoun', 'douglascalhoun', 'https://pbs.twimg.com/profile_images/1831644430/DSC02750_400x400.JPG');
 
-var visitor = 'test';
-streams.users[visitor]= [];
-userInfo[visitor] = new User('John Doe', visitor, 'https://si0.twimg.com/sticky/default_profile_images/default_profile_4_reasonably_small.png');
+var visitor;
 
 // Utility Function for formatting tweets into html
 var formatTweet = function(tweet){
@@ -140,13 +138,31 @@ $(document).ready(function() {
     setFilter();
   });
   $('#my-tweets').click(function(){
-    if(visitor){
+    if(visitor && streams.users[visitor].length > 0){
       setFilter('@'+visitor);
     }
-  })
+  });
   $('#tweet').click(function(){
-    $('.tweet-composer').slideDown();
-    $('.tweet-composer textarea').focus();
+    if(visitor){
+      $('.tweet-composer').slideDown();
+      $('.tweet-composer textarea').focus();
+    } else {
+      $('.login').fadeIn();
+    }
+  });
+
+  $('.login form').submit(function(){
+    visitor = $('#username').val();
+    var fullname = $('#fullname').val();
+    var picture = 'https://si0.twimg.com/sticky/default_profile_images/default_profile_4_reasonably_small.png';
+    streams.users[visitor]= [];
+    userInfo[visitor] = new User(fullname, visitor, picture);
+
+    $('.login').fadeOut();
+    $('.login').remove();
+  });
+  $('button.cancel').click(function(){
+    $('.login').fadeOut();
   })
 
   //Let users write and submit tweets

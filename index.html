@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
   </head>
   <body>
+
     <header class="group primary-header">
       <div class="container">
         <h1 class="logo">Twittler</h1>
@@ -22,6 +23,30 @@
         </div>
       </div>
     </header>
+
+    <section class="login">
+      <form>
+        <h2>Wait!</h2>
+        <p>Before you can tweet, we need to know who you are!</p>
+        <label>
+          Real Name
+          <input type="text" id="fullname" placeholder="John Smith" required>
+        </label>
+        <label>
+          Username
+          <input type="text" id="username" placeholder="jsmith24" pattern="\w{6,15}" required>
+        </label>
+        <!--
+        <label>
+          Profile Picture
+          <input type="file" id="picture">
+        </label>
+        -->
+        <button type="reset" class="cancel">Nevermind</button>
+        <button type="submit" class="submit">Let's Go!</button>
+      </form>
+    </section>
+
     <section class="container group main-content">
       <div class="tweet-composer group">
         <h2>What's happening?</h2>
